@@ -27,4 +27,17 @@ public class Student {
     public String toString(){
         return String.format("%14d %20s %8s",this.nrmatricol, this.prenume+" " + this.nume , this.formatieDeStudiu);
     }
+    @Override
+    public boolean equals(Object o){
+        if(this==o) return true;
+        if(o==null || getClass()!=o.getClass()) return false;
+        Student student = (Student) o;
+        return this.prenume.equals(student.prenume) &&
+                this.nume.equals(student.nume) &&
+                this.formatieDeStudiu.equals(student.formatieDeStudiu);
+    }
+    @Override
+    public int hashCode(){
+        return java.util.Objects.hash(prenume,nume,formatieDeStudiu);
+    }
 }

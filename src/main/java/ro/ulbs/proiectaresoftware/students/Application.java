@@ -1,7 +1,9 @@
 package ro.ulbs.proiectaresoftware.students;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Application {
     public static void main(){
@@ -22,27 +24,22 @@ public class Application {
         }
         Student cautat=new Student(120, "Alis", "Popa", "TI21/2");
         Student cautat2=new Student(112, "Maria", "Popa", "TI21/1");
-        if(existaStudent(studenti,cautat)){
+
+        Set<Student> studentiSet = new HashSet<>(studenti);
+        if(existaStudent(studentiSet,cautat)){
             System.out.println("Studentul Alis Popa TI21/2 exista");
         }
         else{
             System.out.println("Studentul Alis Popa TI21/2 nu exista");
         }
-        if(existaStudent(studenti,cautat2)){
-            System.out.println("Studentul Maria Popa TI21/1 exista");
+        if(existaStudent(studentiSet,cautat2)){
+            System.out.println("Studenta Maria Popa TI21/1 exista");
         }
         else{
-            System.out.println("Studentul Maria Popa TI21/1 nu exista");
+            System.out.println("Studenta Maria Popa TI21/1 nu exista");
         }
     }
-    public static boolean existaStudent(List<Student> lista, Student cautat) {
-        for (Student s : lista) {
-            if (s.getPrenume().equals(cautat.getPrenume()) &&
-                    s.getNume().equals(cautat.getNume()) &&
-                    s.getFormatieDeStudiu().equals(cautat.getFormatieDeStudiu())) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean existaStudent(Set<Student> lista, Student cautat) {
+        return lista.contains(cautat);
     }
 }
