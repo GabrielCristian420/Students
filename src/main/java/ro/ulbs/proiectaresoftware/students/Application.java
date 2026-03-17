@@ -32,7 +32,11 @@ public class Application {
 
         Collections.sort(studenti, new Comparator<Student>() {
             public int compare(Student s1, Student s2) {
-                return s1.getNume().compareTo(s2.getNume());
+                int camp1 = s1.getFormatieDeStudiu().compareTo(s2.getFormatieDeStudiu());
+                if (camp1 == 0) {
+                    return s1.getNume().compareTo(s2.getNume());
+                }
+                return camp1;
             }
         });
 
@@ -41,7 +45,7 @@ public class Application {
             outLines.add(s.getNrmatricol() + "," + s.getPrenume() + "," + s.getNume() + "," + s.getFormatieDeStudiu());
         }
 
-        Files.write(Paths.get("studenti_out.txt"), outLines);
+        Files.write(Paths.get("studenti_out_sorted.txt"), outLines);
     }
 
     public static boolean existaStudent(Set<Student> lista, Student cautat) {
