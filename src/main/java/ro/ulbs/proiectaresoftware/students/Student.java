@@ -2,6 +2,7 @@ package ro.ulbs.proiectaresoftware.students;
 
 public class Student {
     int nrmatricol;
+    float nota;
     String prenume;
     String nume;
     String formatieDeStudiu;
@@ -23,9 +24,15 @@ public class Student {
     public String getFormatieDeStudiu(){
         return this.formatieDeStudiu;
     }
+    public void setNota(float nota){
+        this.nota = nota;
+    }
+    public float getNota(){
+        return this.nota;
+    }
     @Override
     public String toString(){
-        return String.format("%14d %20s %8s",this.nrmatricol, this.prenume+" " + this.nume , this.formatieDeStudiu);
+        return String.format("%14d %22s %20s %10.2f",this.nrmatricol, this.prenume+" " + this.nume , this.formatieDeStudiu, this.nota);
     }
     @Override
     public boolean equals(Object o){
@@ -34,10 +41,11 @@ public class Student {
         Student student = (Student) o;
         return this.prenume.equals(student.prenume) &&
                 this.nume.equals(student.nume) &&
-                this.formatieDeStudiu.equals(student.formatieDeStudiu);
+                this.formatieDeStudiu.equals(student.formatieDeStudiu)
+                && this.nota == student.nota;
     }
     @Override
     public int hashCode(){
-        return java.util.Objects.hash(prenume,nume,formatieDeStudiu);
+        return java.util.Objects.hash(prenume,nume,formatieDeStudiu,nota);
     }
 }
