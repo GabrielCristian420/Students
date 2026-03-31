@@ -66,6 +66,12 @@ public class Application {
         }
 
         Files.write(Paths.get("studenti_out_sorted.txt"), outLines);
+        Set<StudentBursieri> bursieri = new HashSet<>();
+        bursieri.add( new StudentBursieri(1025,"Andrei","Popa","ISM141/2", 8.70f, 725.50));
+        bursieri.add( new StudentBursieri(1024,"Ioan","Mihalcea","ISM141/1", 9.80f, 801.10));
+        bursieri.add( new StudentBursieri(1026,"Anamaria","Prodan","TI131/1", 8.90f, 745.50));
+        bursieri.add( new StudentBursieri(1029,"Bianca","Popescu","TI131/1,", 9.10f, 780.80));
+        scriere("bursieri_out.txt", bursieri);
     }
 
     public static boolean existaStudent(Set<Student> lista, Student cautat) {
@@ -84,5 +90,12 @@ public class Application {
         } else {
             return 0.0f;
         }
+    }
+    static void scriere(String filename, Collection<StudentBursieri> studenti) throws IOException {
+        List<String> outLines = new ArrayList<>();
+        for (Student s : studenti) {
+            outLines.add(s.toString());
+        }
+        Files.write(Paths.get(filename), outLines);
     }
 }
