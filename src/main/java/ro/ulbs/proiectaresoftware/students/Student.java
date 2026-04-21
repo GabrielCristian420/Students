@@ -1,16 +1,17 @@
 package ro.ulbs.proiectaresoftware.students;
 
 public class Student {
-    int nrmatricol;
-    float nota;
-    String prenume;
-    String nume;
-    String formatieDeStudiu;
-    Student(int nrmatricol, String prenume, String nume, String formatieDeStudiu){
+    private final int nrmatricol;
+    private final float nota;
+    private final String prenume;
+    private final String nume;
+    private final String formatieDeStudiu;
+    Student(int nrmatricol,float nota, String prenume, String nume, String formatieDeStudiu){
         this.nrmatricol = nrmatricol;
         this.prenume = prenume;
         this.nume = nume;
         this.formatieDeStudiu = formatieDeStudiu;
+        this.nota=nota;
     }
     public int getNrmatricol(){
         return this.nrmatricol;
@@ -24,9 +25,7 @@ public class Student {
     public String getFormatieDeStudiu(){
         return this.formatieDeStudiu;
     }
-    public void setNota(float nota){
-        this.nota = nota;
-    }
+
     public float getNota(){
         return this.nota;
     }
@@ -39,13 +38,14 @@ public class Student {
         if(this==o) return true;
         if(o==null || getClass()!=o.getClass()) return false;
         Student student = (Student) o;
-        return this.prenume.equals(student.prenume) &&
+        return this.nrmatricol == student.nrmatricol &&
+                this.prenume.equals(student.prenume) &&
                 this.nume.equals(student.nume) &&
                 this.formatieDeStudiu.equals(student.formatieDeStudiu)
                 && this.nota == student.nota;
     }
     @Override
     public int hashCode(){
-        return java.util.Objects.hash(prenume,nume,formatieDeStudiu,nota);
+        return java.util.Objects.hash(nrmatricol,prenume,nume,formatieDeStudiu,nota);
     }
 }

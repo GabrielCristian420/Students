@@ -9,17 +9,24 @@ public class Application {
     public static void main(String[] args) throws IOException {
         List<String> inLines = Files.readAllLines(Paths.get("studenti_in.txt"));
         List<String> inLines2 = Files.readAllLines(Paths.get("note_anon.txt"));
-        List<Student> studenti = new ArrayList<>();
+        Set<Student> studenti = new HashSet<>();
 
         for (String line : inLines) {
             String[] parts = line.split(",");
             Student s = new Student(
                     Integer.parseInt(parts[0].trim()),
+                    0f,
                     parts[1].trim(),
                     parts[2].trim(),
                     parts[3].trim()
             );
             studenti.add(s);
+        }
+
+
+        studenti = imparteInDouaFormatii(studenti, "TI 211_1", "TI 211_2");
+        for(Student s:studenti){
+            System.out.println(s);
         }
 
         HashMap<Integer,Student> map = new HashMap<>();
@@ -33,7 +40,8 @@ public class Application {
 
             Student s = map.get(matricol);
             if (s != null) {
-                s.setNota(nota);
+                Student cuNota = new Student(s.getNrmatricol(),nota, s.getPrenume(), s.getNume(), s.getFormatieDeStudiu());
+                map.put(matricol, cuNota);
             }
         }
         System.out.println(String.format("%14s %22s %20s %10s","numar matricol","prenume nume","formatieDeStudiu","nota"));
@@ -50,7 +58,8 @@ public class Application {
         System.out.println("Nota Bianca Popescu: " + notaM);
         System.out.println("Nota Ioan Popa: " + notaN);
 
-        Collections.sort(studenti, new Comparator<Student>() {
+        List<Student> studentiList = new ArrayList<>(studenti);
+        Collections.sort(studentiList, new Comparator<Student>() {
             public int compare(Student s1, Student s2) {
                 int camp1 = s1.getFormatieDeStudiu().compareTo(s2.getFormatieDeStudiu());
                 if (camp1 == 0) {
@@ -61,7 +70,7 @@ public class Application {
         });
 
         List<String> outLines = new ArrayList<>();
-        for (Student s : studenti) {
+        for (Student s : studentiList) {
             outLines.add(s.getNrmatricol() + "," + s.getPrenume() + "," + s.getNume() + "," + s.getFormatieDeStudiu());
         }
 
@@ -73,7 +82,25 @@ public class Application {
         bursieri.add( new StudentBursieri(1029,"Bianca","Popescu","TI131/1,", 9.10f, 780.80));
         scriere("bursieri_out.txt", bursieri);
     }
-
+    static Student schimbaFormatia(Student st, String nouaFormatieDeStudiu){
+        return new Student(st.getNrmatricol(),st.getNota(),st.getPrenume(),st.getNume(),nouaFormatieDeStudiu);
+    }
+    static Set<Student> imparteInDouaFormatii(Set<Student> studenti, String formatia1, String
+            formatia2) {
+        Set<Student> rezultat=new HashSet<>();
+        int half=studenti.size() / 2;
+        int count=0;
+        for(Student s:studenti){
+            if(count<half){
+                rezultat.add(schimbaFormatia(s,formatia1));
+            }
+            else{
+                rezultat.add(schimbaFormatia(s,formatia2));
+            }
+            count++;
+        }
+        return rezultat;
+    }
     public static boolean existaStudent(Set<Student> lista, Student cautat) {
         return lista.contains(cautat);
     }
