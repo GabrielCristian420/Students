@@ -100,6 +100,36 @@ public class Application {
         bursieri.add(new StudentBursieri(1026, "Anamaria", "Prodan", "TI131/1", 8.90f, 745.50));
         bursieri.add(new StudentBursieri(1029, "Bianca", "Popescu", "TI131/1,", 9.10f, 780.80));
         scriere("bursieri_out.txt", bursieri);
+        List<Student> studentiCuNote = Arrays.asList(
+                new Student(1025,8.70f,"Andrei","Popa","ISM141/2" ),
+                new Student(1024,10,"Ioan","Mihalcea","ISM141/1"),
+                new Student(1026,8.90f,"Anamaria","Prodan","TI131/1" ),
+                new Student(1029,10,"Bianca","Popescu","TI131/1," ),
+                new Student(1029,4.10f,"Maria","Pana","TI131/2,"),
+                new Student(1029,7.33f,"Gabriela","Mohanu","TI131/2,"),
+                new Student(1029,3.20f,"Marius","Nasta","TI131/2,"),
+                new Student(1029,5.12f,"Marius","Nasta","TI131/1,"),
+                new Student(1029,2.22f,"Andrei","Dobrescu","TI131/2,")
+        );
+        System.out.println("-------------Lab 9------------");
+        // 9.3.3 a
+        studentiCuNote.stream().filter(s-> s.getNota() == 10).forEach(System.out::println);
+        // 9.3.3 b
+        System.out.println("Studenti cu nota < 5:");
+        studentiCuNote.stream().filter(s -> s.getNota() < 5).forEach(System.out::println);
+        // 9.3.3 c
+        List<Student> studentiSub4=studentiCuNote.stream().map(s-> {
+            if(s.getNota()<4){
+                return new Student(s.getNrmatricol(),4f,s.getPrenume(),s.getNume(),s.getFormatieDeStudiu());
+            }
+            return s;
+        }).toList();
+        // 9.3.3 d
+        float sumaNote=studentiCuNote.stream().map(s->s.getNota()).reduce(0.0f,Float::sum);
+        System.out.println("Suma notelor: " + sumaNote);
+        // 9.3.3 e
+        float media=sumaNote/studentiCuNote.size();
+        System.out.println("Media notelor: " + media);
     }
 
     public static List<Student> readFromXls(String xlsFileName) {
