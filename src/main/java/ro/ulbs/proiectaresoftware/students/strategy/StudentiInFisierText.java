@@ -1,4 +1,6 @@
-package ro.ulbs.proiectaresoftware.students;
+package ro.ulbs.proiectaresoftware.students.strategy;
+
+import ro.ulbs.proiectaresoftware.students.Student;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -6,7 +6,7 @@ public class Student {
     private final String prenume;
     private final String nume;
     private final String formatieDeStudiu;
-    Student(int nrmatricol,float nota, String prenume, String nume, String formatieDeStudiu){
+    public Student(int nrmatricol, float nota, String prenume, String nume, String formatieDeStudiu){
         this.nrmatricol = nrmatricol;
         this.prenume = prenume;
         this.nume = nume;

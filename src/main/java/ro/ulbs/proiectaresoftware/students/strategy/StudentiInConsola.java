@@ -1,6 +1,8 @@
-package ro.ulbs.proiectaresoftware.students;
+package ro.ulbs.proiectaresoftware.students.strategy;
 
-public class StudentiInConsola implements  IStudentiExport {
+import ro.ulbs.proiectaresoftware.students.Student;
+
+public class StudentiInConsola implements IStudentiExport {
     @Override
     public void doExport(java.util.List<Student> studenti) {
         for(Student student: studenti){
